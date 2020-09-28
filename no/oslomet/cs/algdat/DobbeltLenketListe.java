@@ -1,5 +1,6 @@
 package no.oslomet.cs.algdat;
-
+import java.util.Objects;
+import java.util.function.Predicate;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
@@ -10,13 +11,16 @@ import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 import java.util.Iterator;
-import java.util.Objects;
-import java.util.function.Predicate;
+
 
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
+
+    public static void main(String[] args){
+
+    }
     /**
      * Node class
      * @param <T>
