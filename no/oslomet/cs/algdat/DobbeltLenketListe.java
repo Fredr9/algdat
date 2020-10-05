@@ -72,7 +72,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return (antall == 0 );
+        return (antall == 0);
     }
 
     @Override
