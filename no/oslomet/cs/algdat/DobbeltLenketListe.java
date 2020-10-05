@@ -1,5 +1,7 @@
 package no.oslomet.cs.algdat;
 
+import java.util.Objects;
+import java.util.function.Predicate;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
@@ -10,17 +12,23 @@ import java.util.NoSuchElementException;
 import java.util.StringJoiner;
 
 import java.util.Iterator;
-import java.util.Objects;
-import java.util.function.Predicate;
-
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
+
+
+
+
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
+        System.out.println(liste.antall() + " " + liste.tom());
+
+
     }
+
     /**
      * Node class
+     *
      * @param <T>
      */
     private static final class Node<T> {
@@ -45,25 +53,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        //throw new UnsupportedOperationException();
+        //   throw new UnsupportedOperationException();
     }
-
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        if(a == null) {
+            throw new NullPointerException();
+        }
     }
 
-    public Liste<T> subliste(int fra, int til){
+    public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
+        return antall;
     }
 
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        return (antall == 0 );
     }
 
     @Override
@@ -129,34 +138,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
-    private class DobbeltLenketListeIterator implements Iterator<T>
-    {
+    private class DobbeltLenketListeIterator implements Iterator<T> {
         private Node<T> denne;
         private boolean fjernOK;
         private int iteratorendringer;
 
-        private DobbeltLenketListeIterator(){
+        private DobbeltLenketListeIterator() {
             denne = hode;     // p starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
-        private DobbeltLenketListeIterator(int indeks){
+        private DobbeltLenketListeIterator(int indeks) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public boolean hasNext(){
+        public boolean hasNext() {
             return denne != null;
         }
 
         @Override
-        public T next(){
+        public T next() {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void remove(){
+        public void remove() {
             throw new UnsupportedOperationException();
         }
 
