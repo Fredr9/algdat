@@ -16,7 +16,9 @@ import java.util.function.Predicate;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
-
+    public static void main(String[] args) {
+        Liste<String> liste = new DobbeltLenketListe<>();
+    }
     /**
      * Node class
      * @param <T>
@@ -43,7 +45,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
     }
 
     public DobbeltLenketListe(T[] a) {
