@@ -17,8 +17,6 @@ import java.util.Iterator;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
-
-
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
@@ -52,9 +50,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
-    public DobbeltLenketListe() {
-        //   throw new UnsupportedOperationException();
+    // hjelpemetode
+    private Node<T> finnNode(int indeks) {
+        throw new UnsupportedOperationException("ikke laget ennå");
     }
+
+
+    public DobbeltLenketListe() {
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
+    }
+
     public DobbeltLenketListe(T[] a) {
         if (a == null) {
             throw new NullPointerException();
@@ -77,12 +84,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return (antall == 0);
+        if (hode == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(verdi);
+
     }
 
     @Override
@@ -127,11 +139,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        StringBuilder tegnStreng = new StringBuilder();
+        tegnStreng.append("[");
+
+        Node<T> head = hode;
+
+        for (; head != null; head = head.neste) {
+            tegnStreng.append(head.verdi);
+
+            if (head != hale) {
+                tegnStreng.append(", ");
+            }
+        }
+
+        tegnStreng.append("]");
+        return tegnStreng.toString();
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        StringBuilder tegnStreng = new StringBuilder();
+        tegnStreng.append("[");
+
+        Node<T> tail = hale;
+
+        for (; tail != null; tail = tail.forrige){
+
+            tegnStreng.append(tail.verdi);
+
+            if (tail != hode) {
+                tegnStreng.append(", ");
+            }
+        }
+
+        tegnStreng.append("]");
+
+        return tegnStreng.toString();
     }
 
     @Override
