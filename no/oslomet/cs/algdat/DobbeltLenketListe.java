@@ -55,11 +55,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe() {
         //   throw new UnsupportedOperationException();
     }
+
     public DobbeltLenketListe(T[] a) {
-        if(a == null) {
+        if (a == null) {
             throw new NullPointerException();
         }
+        for (int i = 0; i < a.length; ++i) {
+            antall++;
+            tom();
+        }
     }
+
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
@@ -74,6 +80,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean tom() {
         return (antall == 0);
     }
+
 
     @Override
     public boolean leggInn(T verdi) {
