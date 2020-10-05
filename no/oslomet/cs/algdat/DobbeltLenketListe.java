@@ -17,10 +17,11 @@ import java.util.Iterator;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
+
+
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
-        
 
 
     }
@@ -52,20 +53,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-
-
+        //   throw new UnsupportedOperationException();
     }
 
     public DobbeltLenketListe(T[] a) {
-        hode = hale = null;
-        antall = 0;  
         if (a == null) {
             throw new NullPointerException();
         }
         for (int i = 0; i < a.length; ++i) {
-            antall++;
+            if(a[i] == null) {
+
+            }
+            else antall++;
             tom();
         }
+>>>>>>>>> Temporary merge branch 2
     }
 
 
@@ -82,6 +84,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean tom() {
         return (antall == 0);
     }
+
 
     @Override
     public boolean leggInn(T verdi) {
