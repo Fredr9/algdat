@@ -55,6 +55,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        if (a == null) {
+            throw new NullPointerException();
+        }
         for (int i = 0; i < a.length; ++i) {
             antall++;
             tom();
@@ -75,6 +78,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public boolean tom() {
         return (antall == 0);
     }
+
 
     @Override
     public boolean leggInn(T verdi) {
