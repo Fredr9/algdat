@@ -17,8 +17,6 @@ import java.util.Iterator;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
-
-
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
@@ -61,13 +59,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new NullPointerException();
         }
         for (int i = 0; i < a.length; ++i) {
-            if(a[i] == null) {
-
-            }
-            else antall++;
+            if (a[i] == null) {
+                endringer++;
+            } else antall++;
             tom();
         }
->>>>>>>>> Temporary merge branch 2
+
     }
 
 
@@ -88,7 +85,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+        if(verdi == null) {
+            throw new NullPointerException();
+        }
+        antall++;
+        return true;
     }
 
     @Override
@@ -133,11 +134,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        String test = "[]"  ;
+        if(antall == 0) {
+            return test;
+        }
+        StringBuilder tegnStreng = new StringBuilder();
+        for (int i = 0; i < antall; ++i) {
+           // hode<i> = tegnStreng;
+        }
+        return "toString()";
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+       // throw new UnsupportedOperationException();
+        return "[]";
     }
 
     @Override
