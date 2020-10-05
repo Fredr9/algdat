@@ -61,7 +61,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new NullPointerException();
         }
         for (int i = 0; i < a.length; ++i) {
-            antall++;
+            if(a[i] == null) {
+
+            }
+            else antall++;
             tom();
         }
     }
