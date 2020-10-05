@@ -56,7 +56,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //   throw new UnsupportedOperationException();
     }
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        if(a == null) {
+            throw new NullPointerException();
+        }
     }
 
     public Liste<T> subliste(int fra, int til) {
