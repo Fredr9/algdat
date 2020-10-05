@@ -85,7 +85,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        if(verdi == null) {
+        if (verdi == null) {
             throw new NullPointerException();
         }
         antall++;
@@ -134,19 +134,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        String test = "[]"  ;
-        if(antall == 0) {
+        String test = "[]";
+        if (antall == 0) {
             return test;
         }
         StringBuilder tegnStreng = new StringBuilder();
-        for (int i = 0; i < antall; ++i) {
-           // hode<i> = tegnStreng;
+
+        for (int i = 1; i < antall + 1; ++i) {
+          
+            tegnStreng.append(i);
+
+            // hode<i> = tegnStreng;
         }
-        return "toString()";
+        return tegnStreng.append("]!").toString();
     }
 
     public String omvendtString() {
-       // throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
         return "[]";
     }
 
