@@ -17,8 +17,6 @@ import java.util.Iterator;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
-
-
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
@@ -55,9 +53,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe() {
         //   throw new UnsupportedOperationException();
     }
+
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        for (int i = 0; i < a.length; ++i) {
+            antall++;
+            tom();
+        }
     }
+
 
     public Liste<T> subliste(int fra, int til) {
         throw new UnsupportedOperationException();
@@ -70,7 +73,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return (antall == 0 );
+        return (antall == 0);
     }
 
     @Override
