@@ -166,13 +166,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return tomtArrayString;
         }
         StringBuilder tegnStreng = new StringBuilder();
-
+        tegnStreng.append("[");
         for (int i = 1; i < antall + 1; ++i) {
 
-            tegnStreng.append(i + ", ");
+            tegnStreng.append(i);
 
-            // hode<i> = tegnStreng;
+
+
         }
+
         return tegnStreng.append("]").toString();
     }
 
