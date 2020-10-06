@@ -20,14 +20,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-        Liste<String> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.antall() + " " + liste.tom());
-       /*
+       // Liste<String> liste = new DobbeltLenketListe<>();
+       // System.out.println(liste.antall() + " " + liste.tom());
+
         String[] s = {"Ole", null, "Per", "Kari", null};
-        Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + "" + liste.tom());
+        Liste<String> listen = new DobbeltLenketListe<>(s);
+       // System.out.println(listen.antall() + " " + liste.tom());
+      //  System.out.println(listen.toString());
         
-        */
+
     }
 
     /**
@@ -80,14 +81,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Node naavaerende = null;
 
-        if (a == null) {
+        if (a.clone() == null) {
             throw new NullPointerException();
         }
         
 
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                //  endringer++ ikke gjøre noe ignorere null verdier
+                // ignorerer null verdier
             } else {
                 if (naavaerende == null) {
                     hode = new Node<>(a[i]);
@@ -106,24 +107,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall == 0){
             return;
         }
-
-
-        Objects.requireNonNull(a);
-
-        Node<T> naavaerende = null;
-
-        for (T t : a) {
-            if (t != null) {
-                if (antall == 0) {
-                    hode = hale = naavaerende = new Node<>(t,null,null);
-                    antall ++;
-                } else {
-                    hale = naavaerende = naavaerende.neste = new Node<>(t,naavaerende,null);
-                    antall ++;
-                }
-            }
-        }
-
+        hale = naavaerende;
+        hale.neste = hode;
+        hode.forrige = hale;
     }
 
 
@@ -197,19 +183,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
+        if(tom()){
+            return "[]";
+        }
         StringBuilder tegnStreng = new StringBuilder();
         tegnStreng.append("[");
 
         Node<T> head = hode;
+        tegnStreng.append(head.verdi);
+        head = head.neste;
 
-        for (; head != null; head = head.neste) {
-            tegnStreng.append(head.verdi);
-
-            if (head != hale) {
-                tegnStreng.append(", ");
+        while(head != null) {
+            tegnStreng.append(",").append(" ").append(head.verdi);
             }
-        }
-
         tegnStreng.append("]");
         return tegnStreng.toString();
     }
