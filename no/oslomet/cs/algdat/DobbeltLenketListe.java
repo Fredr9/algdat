@@ -1,24 +1,21 @@
 package no.oslomet.cs.algdat;
 
-import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.Comparator;
+import java.util.Iterator;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
-
-
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
-
-import java.util.Iterator;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-        Liste<String> liste = new DobbeltLenketListe<>();
+        /*   Liste<String> liste = new DobbeltLenketListe<>();
+        System.out.println(liste.antall() + " " + liste.tom());
+        */
+
+        String[] s = {"1",null,"2",null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
         System.out.println(liste.antall() + " " + liste.tom());
 
 
@@ -55,21 +52,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        hode = null;
+        hale = null;
+
+        if (a.length == 0) {
+            return;
+        }
         antall = 0;
         hode = hale = null;
-        //hale.neste = null;
-        //hode.forrige = null;
 
         Node naavaerende = null;
 
         if (a == null) {
             throw new NullPointerException();
         }
+        
 
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                //throw new NullPointerException();
-                //endringer++ ikke gjøre noe ignorere null verdier
+                //  endringer++ ikke gjøre noe ignorere null verdier
             } else {
                 if (naavaerende == null) {
                     hode = new Node<>(a[i]);
@@ -84,6 +85,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             }
 
+        }
+        if(antall == 0){
+            return;
         }
         hale = naavaerende;
         hale.neste = hode;
@@ -102,13 +106,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return (antall == 0);
+        return antall == 0;
     }
 
 
     @Override
     public boolean leggInn(T verdi) {
-        if(verdi == null) {
+        if (verdi == null) {
             throw new NullPointerException();
         }
         antall++;
@@ -170,6 +174,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         String conv = tegnStreng.toString();
         return ("[" + conv + "]");
 
+            // hode<i> = tegnStreng;
+        }
+        return tegnStreng.append("]").toString();
     }
 
     public String omvendtString() {
