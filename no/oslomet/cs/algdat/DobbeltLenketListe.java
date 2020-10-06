@@ -1,17 +1,9 @@
 package no.oslomet.cs.algdat;
 
-import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.Comparator;
+import java.util.Iterator;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
-
-
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
-
-import java.util.Iterator;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -20,8 +12,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
-
-
+       /*
+        String[] s = {"Ole", null, "Per", "Kari", null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
+        System.out.println(liste.antall() + "" + liste.tom());
+        
+        */
     }
 
     /**
@@ -55,16 +51,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        antall = 0;
+        hode = hale = null;
+
+        Node naavaerende = null;
+        /*
         if (a == null) {
             throw new NullPointerException();
         }
+        
+        */
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                endringer++;
-            } else antall++;
-            tom();
-        }
+                throw new NullPointerException();
+                //  endringer++ ikke gjøre noe ignorere null verdier
+            } else {
+                if (naavaerende == null) {
+                    hode = new Node<>(a[i]);
+                    naavaerende = hode;
 
+                } else {
+                    naavaerende.neste = new Node(a[i]);
+                    naavaerende.neste.forrige = naavaerende;
+                    naavaerende = naavaerende.neste;
+                }
+                antall++;
+
+            }
+
+        }
+        hale = naavaerende;
+        hale.neste = hode;
+        hode.forrige = hale;
     }
 
 
@@ -79,7 +97,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return (antall == 0);
+        return antall == 0;
     }
 
 
@@ -134,19 +152,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        String test = "[]";
+        String tomtArrayString = "[]";
         if (antall == 0) {
-            return test;
+            return tomtArrayString;
         }
         StringBuilder tegnStreng = new StringBuilder();
 
         for (int i = 1; i < antall + 1; ++i) {
-          
-            tegnStreng.append(i);
+
+            tegnStreng.append(i + ", ");
 
             // hode<i> = tegnStreng;
         }
-        return tegnStreng.append("]!").toString();
+        return tegnStreng.append("]").toString();
     }
 
     public String omvendtString() {
