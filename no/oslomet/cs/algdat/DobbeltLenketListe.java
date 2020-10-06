@@ -57,18 +57,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
         antall = 0;
         hode = hale = null;
+        //hale.neste = null;
+        //hode.forrige = null;
 
         Node naavaerende = null;
-        /*
+
         if (a == null) {
             throw new NullPointerException();
         }
 
-        */
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                throw new NullPointerException();
-                //  endringer++ ikke gjøre noe ignorere null verdier
+                //throw new NullPointerException();
+                //endringer++ ikke gjøre noe ignorere null verdier
             } else {
                 if (naavaerende == null) {
                     hode = new Node<>(a[i]);
