@@ -134,15 +134,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
+        DobbeltLenketListe liste = new DobbeltLenketListe();
         String test = "[]"  ;
         if(antall == 0) {
             return test;
         }
         StringBuilder tegnStreng = new StringBuilder();
         for (int i = 0; i < antall; ++i) {
-           // hode<i> = tegnStreng;
+            tegnStreng.append(i);
+
         }
-        return "toString()";
+        String conv = tegnStreng.toString();
+        return ("[" + conv + "]");
+
     }
 
     public String omvendtString() {
