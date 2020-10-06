@@ -20,8 +20,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
         Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
+       /*
+        String[] s = {"Ole", null, "Per", "Kari", null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
+        System.out.println(liste.antall() + "" + liste.tom());
 
-
+        */
     }
 
     /**
@@ -63,13 +67,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        antall = 0;
+        hode = hale = null;
+
+        Node naavaerende = null;
+        /*
         if (a == null) {
             throw new NullPointerException();
         }
+
+        */
         for (int i = 0; i < a.length; ++i) {
-            antall++;
-            tom();
+            if (a[i] == null) {
+                throw new NullPointerException();
+                //  endringer++ ikke gjøre noe ignorere null verdier
+            } else {
+                if (naavaerende == null) {
+                    hode = new Node<>(a[i]);
+                    naavaerende = hode;
+
+                } else {
+                    naavaerende.neste = new Node(a[i]);
+                    naavaerende.neste.forrige = naavaerende;
+                    naavaerende = naavaerende.neste;
+                }
+                antall++;
+
+            }
+
         }
+        hale = naavaerende;
+        hale.neste = hode;
+        hode.forrige = hale;
     }
 
 
@@ -89,12 +118,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             return false;
         }
+        return antall == 0;
     }
+
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi);
-
+        if (verdi == null) {
+            throw new NullPointerException();
+        }
+        antall++;
+        return true;
     }
 
     @Override
