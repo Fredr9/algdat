@@ -13,19 +13,22 @@ import java.util.StringJoiner;
 
 import java.util.Iterator;
 
+////////////////// class DobbeltLenketListe //////////////////////////////
+
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-        Liste<String> liste = new DobbeltLenketListe<>();
+        /*   Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
-       /*
-        String[] s = {"Ole", null, "Per", "Kari", null};
-        Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + "" + liste.tom());
-
         */
+
+        String[] s = {"1",null,"2",null};
+        Liste<String> liste = new DobbeltLenketListe<>(s);
+        System.out.println(liste.antall() + " " + liste.tom());
+
+
     }
 
     /**
@@ -67,15 +70,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        /*
+        hode = null;
+        hale = null;
+
+        if (a.length == 0) {
+            return;
+        }
+        antall = 0;
+        hode = hale = null;
 
         Node naavaerende = null;
-
+        /*
         if (a == null) {
             throw new NullPointerException();
         }
-
-
+        
+        */
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
                 throw new NullPointerException();
@@ -94,6 +104,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             }
 
+        }
+        if(antall == 0){
+            return;
         }
        ;
          */
