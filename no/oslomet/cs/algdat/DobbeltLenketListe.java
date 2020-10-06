@@ -14,9 +14,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println(liste.antall() + " " + liste.tom());
         */
 
-        String[] s = {"1",null,"2",null};
-        Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + " " + liste.tom());
+        //String[] s = {"1",null,"2",null};
+        //Liste<String> liste = new DobbeltLenketListe<>(s);
+        //System.out.println(liste.antall() + " " + liste.tom());
 
 
     }
@@ -161,23 +161,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        DobbeltLenketListe liste = new DobbeltLenketListe();
         String test = "[]"  ;
         if(antall == 0) {
             return test;
         }
         StringBuilder tegnStreng = new StringBuilder();
-        for (int i = 0; i < antall; ++i) {
+        for (int i = 1; i < antall+1; ++i) {
             tegnStreng.append(i);
-
         }
         String conv = tegnStreng.toString();
-        return ("[" + conv + "]");
-
-            // hode<i> = tegnStreng;
-        }
+        //return ("[" + conv + "]");
         return tegnStreng.append("]").toString();
-    }
+        }
 
     public String omvendtString() {
        // throw new UnsupportedOperationException();
