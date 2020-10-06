@@ -55,16 +55,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
+        antall = 0;
+        hode = hale = null;
+
+        Node naavaerende = null;
+        /*
         if (a == null) {
             throw new NullPointerException();
         }
+
+        */
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                endringer++;
-            } else antall++;
-            tom();
-        }
+                throw new NullPointerException();
+                //  endringer++ ikke gjøre noe ignorere null verdier
+            } else {
+                if (naavaerende == null) {
+                    hode = new Node<>(a[i]);
+                    naavaerende = hode;
 
+                } else {
+                    naavaerende.neste = new Node(a[i]);
+                    naavaerende.neste.forrige = naavaerende;
+                    naavaerende = naavaerende.neste;
+                }
+                antall++;
+
+            }
+
+        }
+        hale = naavaerende;
+        hale.neste = hode;
+        hode.forrige = hale;
     }
 
 
