@@ -67,16 +67,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        antall = 0;
-        hode = hale = null;
+        /*
 
         Node naavaerende = null;
-        /*
+
         if (a == null) {
             throw new NullPointerException();
         }
 
-        */
+
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
                 throw new NullPointerException();
@@ -96,9 +95,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
 
         }
-        hale = naavaerende;
-        hale.neste = hode;
-        hode.forrige = hale;
+       ;
+         */
+        Objects.requireNonNull(a);
+
+        Node<T> naavaerende = null;
+
+        for (T t : a) {
+            if (t != null) {
+                if (antall == 0) {
+                    hode = hale = naavaerende = new Node<>(t,null,null);
+                    antall ++;
+                } else {
+                    hale = naavaerende = naavaerende.neste = new Node<>(t,naavaerende,null);
+                    antall ++;
+                }
+            }
+        }
+
     }
 
 
@@ -118,7 +132,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             return false;
         }
-        return antall == 0;
     }
 
 
@@ -196,7 +209,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Node<T> tail = hale;
 
-        for (; tail != null; tail = tail.forrige){
+        for (; tail != null; tail = tail.forrige) {
 
             tegnStreng.append(tail.verdi);
 
