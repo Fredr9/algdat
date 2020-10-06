@@ -1,6 +1,16 @@
 package no.oslomet.cs.algdat;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+
+////////////////// class DobbeltLenketListe //////////////////////////////
+
+
 import java.util.Comparator;
+import java.util.ConcurrentModificationException;
+import java.util.NoSuchElementException;
+import java.util.StringJoiner;
+
 import java.util.Iterator;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
@@ -10,15 +20,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-        /*   Liste<String> liste = new DobbeltLenketListe<>();
+        Liste<String> liste = new DobbeltLenketListe<>();
         System.out.println(liste.antall() + " " + liste.tom());
-        */
-
-        String[] s = {"1",null,"2",null};
+       /*
+        String[] s = {"Ole", null, "Per", "Kari", null};
         Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + " " + liste.tom());
-
-
+        System.out.println(liste.antall() + "" + liste.tom());
+        
+        */
     }
 
     /**
@@ -47,8 +56,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+    // hjelpemetode
+    private Node<T> finnNode(int indeks) {
+        throw new UnsupportedOperationException("ikke laget ennå");
+    }
+
+
     public DobbeltLenketListe() {
-        //   throw new UnsupportedOperationException();
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
     public DobbeltLenketListe(T[] a) {
@@ -67,7 +84,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new NullPointerException();
         }
         
-        
+
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
                 //  endringer++ ikke gjøre noe ignorere null verdier
@@ -89,9 +106,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(antall == 0){
             return;
         }
-        hale = naavaerende;
-        hale.neste = hode;
-        hode.forrige = hale;
+
+
+        Objects.requireNonNull(a);
+
+        Node<T> naavaerende = null;
+
+        for (T t : a) {
+            if (t != null) {
+                if (antall == 0) {
+                    hode = hale = naavaerende = new Node<>(t,null,null);
+                    antall ++;
+                } else {
+                    hale = naavaerende = naavaerende.neste = new Node<>(t,naavaerende,null);
+                    antall ++;
+                }
+            }
+        }
+
     }
 
 
@@ -106,7 +138,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        return antall == 0;
+        if (hode == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -161,26 +197,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public String toString() {
-        String tomtArrayString = "[]";
-        if (antall == 0) {
-            return tomtArrayString;
-        }
         StringBuilder tegnStreng = new StringBuilder();
         tegnStreng.append("[");
-        for (int i = 1; i < antall + 1; ++i) {
 
-            tegnStreng.append(i);
+        Node<T> head = hode;
 
+        for (; head != null; head = head.neste) {
+            tegnStreng.append(head.verdi);
 
-
+            if (head != hale) {
+                tegnStreng.append(", ");
+            }
         }
 
-        return tegnStreng.append("]").toString();
+        tegnStreng.append("]");
+        return tegnStreng.toString();
     }
 
     public String omvendtString() {
-        // throw new UnsupportedOperationException();
-        return "[]";
+        StringBuilder tegnStreng = new StringBuilder();
+        tegnStreng.append("[");
+
+        Node<T> tail = hale;
+
+        for (; tail != null; tail = tail.forrige) {
+
+            tegnStreng.append(tail.verdi);
+
+            if (tail != hode) {
+                tegnStreng.append(", ");
+            }
+        }
+
+        tegnStreng.append("]");
+
+        return tegnStreng.toString();
     }
 
     @Override
