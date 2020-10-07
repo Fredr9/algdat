@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import com.sun.security.auth.UnixNumericUserPrincipal;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -47,19 +48,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             System.out.println(liste.toString() + " " + liste.omvendtString()); }
 
     }
+             */
 
-      */
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.subliste(3, 8));
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
+        liste.fjern(0);
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
+        System.out.println(liste);
 
         //  [D, E, F, G, H]
-        System.out.println(liste.subliste(5, 5));
+        //System.out.println(liste.subliste(5, 5));
         // []
-        System.out.println(liste.subliste(8, liste.antall())); //
+        // System.out.println(liste.subliste(8, liste.antall())); //
         // [I, J] //
-        System.out.println(liste.subliste(0, c.length + 1));
+        // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
+
+
     }
 
     /**
@@ -70,6 +78,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
+
 
         public T getVerdi() {
             return this.verdi;
@@ -135,11 +144,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe() {
-        hode = null;
-        hale = null;
-
-        antall = 0;
-        endringer = 0;
 
     }
 
@@ -199,7 +203,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+        /*Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -209,6 +213,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
+         */
+
+        Objects.requireNonNull(verdi);
+
+        if (hode == null || hale == null) {
+            hode = new Node<>(verdi);
+            hale = hode;
+        } else {
+            hale.neste = new Node<>(verdi);
+            hale.neste.forrige = hale;
+            hale = hale.neste;
+        }
+        antall++;
+        return true;
 
     }
 
@@ -233,14 +251,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale.forrige.neste = hale;
         } else {
             Node<T> nHode = hode;
-            for (int i = 0; i < indeks; i++) nHode = nHode.neste;
+
+            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;
             {
+
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
             nHode.neste.forrige = nHode.forrige.neste = nHode;
+
         }
         ++antall;
         ++endringer;
+
+
     }
 
 
@@ -285,16 +308,73 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if (verdi == null) {
+            return false;
+        }
+        Node<T> head = hode;
+        while (head != null) {
+            if (head.verdi.equals(verdi)) {
+                break;
+            }
+            head = head.neste;
+        }
+        if (head == null) {
+            return false;
+        }
+        if (head == hode) {
+            hode = hode.neste;
+
+            if (hode != null) {
+                hode.forrige = null;
+            } else {
+                hale = null;
+            }
+        } else if (head == hale) {
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            head.forrige.neste = head.neste;
+            head.neste.forrige = head.forrige;
+        }
+        head.verdi = null;
+        head.forrige = head.neste = null;
+
+        antall--;
+        endringer++;
+
+        return true;
+
+
     }
+
 
     @Override
     public T fjern(int indeks) {
+        indeksKontroll(indeks, true);
 
-        indeksKontroll(indeks, false);
-        Node<T> head = hode;
+
+        Node<T> midlertidig;
+
+        if (indeks == 0) {
+            midlertidig = hode;
+            hode = hode.neste;
+            hode.forrige = null;
+        } else if (indeks == antall - 1) {
+            midlertidig = hale;
+            hale = hale.forrige;
+            hale.neste = null;
+
+        } else {
+            Node<T> n = finnNode(indeks - 1);
+
+            midlertidig = n.neste;
+            n.neste = n.neste.neste;
+            n.neste.forrige = n;
+            //throw new IndexOutOfBoundsException();
         }
-
+        antall--;
+        endringer++;
+        return midlertidig.verdi;
     }
 
     @Override
