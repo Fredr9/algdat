@@ -2,7 +2,6 @@ package no.oslomet.cs.algdat;
 
 import com.sun.security.auth.UnixNumericUserPrincipal;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -66,8 +65,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // [I, J] //
         // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
-
-
     }
 
     /**
@@ -78,7 +75,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
-
 
         public T getVerdi() {
             return this.verdi;
@@ -144,6 +140,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public DobbeltLenketListe() {
+      /*  hode = null;
+        hale = null;
+
+        antall = 0;
+        endringer = 0;
+
+       */
 
     }
 
@@ -251,17 +254,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale.forrige.neste = hale;
         } else {
             Node<T> nHode = hode;
-
-            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;
+            for (int i = 0; i < indeks; i++) nHode = nHode.neste;
             {
-
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
             nHode.neste.forrige = nHode.forrige.neste = nHode;
-
         }
         ++antall;
         ++endringer;
+    }
 
 
     }
