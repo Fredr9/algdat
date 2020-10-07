@@ -61,11 +61,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             // System.out.println(liste.subliste(0, c.length + 1));
             // skal kaste unntak
             
-        */
+
         String[] s1 = {"hallo"}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
         DobbeltLenketListe<String> ja = new DobbeltLenketListe<>(s3);
         ja.nullstill();
-        System.out.println(ja);
+        System.out.println(ja);*/
+        /*DobbeltLenketListe<String> liste =
+                new DobbeltLenketListe<>(new String[]
+                        {"Birger", "Lars", "Anders", "Bodil", "Kari", "Per", "Berit"});
+        liste.fjernHvis(navn -> navn.charAt(0) == 'P'); // fjerner navn som starter med B
+         System.out.println(liste + " " + liste.omvendtString());
+// Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
+
+         */
+
+
+
     }
 
 
@@ -521,26 +532,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         public void remove() {
             if (endringer != iteratorendringer) {
                 throw new ConcurrentModificationException();
-            }  if (antall == 1) {
+            }
+            if (antall == 0 || !fjernOK) {
+                throw new IllegalStateException();
+            } else if (antall == 1) {
                 hode = null;
                 hale = null;
             } else if (denne == null) {
                 hale = hale.forrige;
                 hale.neste.forrige = null;
                 hale.neste = null;
-            } else if (denne.forrige == hode ) {
+            } else if (denne.forrige == hode) {
                 hode = hode.neste;
-                hode.neste.neste = null;
-                hode.neste = null;
-            }else{
+                hode.forrige.neste = null;
+                hode.forrige = null;
+            } else {
                 Node<T> nodeSlette = denne.forrige;
-                Node<T> nodeFoer= nodeSlette.forrige;
+                Node<T> nodeFoer = nodeSlette.forrige;
                 Node<T> nodeEtter = denne;
                 nodeFoer.neste = nodeEtter;
                 nodeEtter.forrige = nodeFoer;
                 nodeSlette.forrige = null;
                 nodeSlette.neste = null;
             }
+            antall--;
+            iteratorendringer++;
+            endringer++;
+            fjernOK = false;
 
         }
     }
