@@ -51,14 +51,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
       */
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.subliste(3, 8));
+        liste.leggInn(5, '7');
+        System.out.println(liste);
 
         //  [D, E, F, G, H]
-        System.out.println(liste.subliste(5, 5));
+        //System.out.println(liste.subliste(5, 5));
         // []
-        System.out.println(liste.subliste(8, liste.antall())); //
+       // System.out.println(liste.subliste(8, liste.antall())); //
         // [I, J] //
-        System.out.println(liste.subliste(0, c.length + 1));
+       // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
     }
 
@@ -194,7 +195,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+        /*Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -204,33 +205,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
+         */
+
+        Objects.requireNonNull(verdi);
+
+        if (hode == null || hale == null) {
+            hode = new Node<>(verdi);
+            hale = hode;
+        } else {
+            hale.neste = new Node<>(verdi);
+            hale.neste.forrige = hale;
+            hale = hale.neste;
+        }
+        antall++;
+        return true;
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
+        // sjekker etter null verdier
         Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
-        if (indeks < 0 || indeks > antall) {
+
+        if (indeks < 0) {
+            throw new IndexOutOfBoundsException();
+        } else if (indeks > antall) {
             throw new IndexOutOfBoundsException();
         }
 
-        if (indeks == 0) {
-            hode = new Node<>(verdi);
-            if (antall == 0) {
-                hale = hode;
-            }
+        if (antall == 0 && indeks == 0) {
+            hode = hale = new Node<T>(verdi, null, null);
+        } else if (indeks == 0) {
+            hode = new Node<T>(verdi, null, hode);
+            hode.neste.forrige = hode;
         } else if (indeks == antall) {
             hale = new Node<T>(verdi, hale, null);
             hale.forrige.neste = hale;
         } else {
             Node<T> nHode = hode;
-            for (int i = 0; i < indeks; i++) nHode = nHode.neste; {
+
+            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;{
+
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
             nHode.neste.forrige = nHode.forrige.neste = nHode;
+
         }
-        antall++;
-        endringer++;
+        ++antall;
+        ++endringer;
+
+
     }
 
 
@@ -280,7 +304,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+       throw new UnsupportedOperationException();
     }
 
     @Override
