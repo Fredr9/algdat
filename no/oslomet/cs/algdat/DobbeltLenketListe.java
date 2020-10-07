@@ -66,7 +66,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // [I, J] //
         // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
-        
+
 
     }
 
@@ -311,17 +311,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (verdi == null) {
             return false;
         }
-        Node<T> denneNoden = hode;
-        while (denneNoden != null) {
-            if (denneNoden.verdi.equals(verdi)) {
+        Node<T> head = hode;
+        while (head != null) {
+            if (head.verdi.equals(verdi)) {
                 break;
             }
-            denneNoden = denneNoden.neste;
+            head = head.neste;
         }
-        if (denneNoden == null) {
+        if (head == null) {
             return false;
         }
-        if (denneNoden == hode) {
+        if (head == hode) {
             hode = hode.neste;
 
             if (hode != null) {
@@ -329,15 +329,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             } else {
                 hale = null;
             }
-        } else if (denneNoden == hale) {
+        } else if (head == hale) {
             hale = hale.forrige;
             hale.neste = null;
         } else {
-            denneNoden.forrige.neste = denneNoden.neste;
-            denneNoden.neste.forrige = denneNoden.forrige;
+            head.forrige.neste = head.neste;
+            head.neste.forrige = head.forrige;
         }
-        denneNoden.verdi = null;
-        denneNoden.forrige = denneNoden.neste = null;
+        head.verdi = null;
+        head.forrige = head.neste = null;
 
         antall--;
         endringer++;
@@ -350,7 +350,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        //indeksKontroll(indeks,true);
+        indeksKontroll(indeks, true);
+
 
         Node<T> midlertidig;
 
@@ -362,12 +363,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             midlertidig = hale;
             hale = hale.forrige;
             hale.neste = null;
+
         } else {
             Node<T> n = finnNode(indeks - 1);
 
             midlertidig = n.neste;
             n.neste = n.neste.neste;
             n.neste.forrige = n;
+            //throw new IndexOutOfBoundsException();
         }
         antall--;
         endringer++;
