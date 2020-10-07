@@ -51,15 +51,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
       */
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.subliste(3, 8));
+
 
         //  [D, E, F, G, H]
-        System.out.println(liste.subliste(5, 5));
-        // []
-        System.out.println(liste.subliste(8, liste.antall())); //
-        // [I, J] //
-        System.out.println(liste.subliste(0, c.length + 1));
-        // skal kaste unntak
+        liste.leggInn(0, '4');
+        System.out.println(liste);
+
+
     }
 
     /**
@@ -211,47 +209,39 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (hode == null || hale == null) {
             hode = new Node<>(verdi);
             hale = hode;
-        } else{
+        } else {
             hale.neste = new Node<>(verdi);
             hale.neste.forrige = hale;
             hale = hale.neste;
         }
-                              antall++;
+        antall++;
         return true;
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        // sjekker etter null verdier
-    /*    Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
-
-        if (indeks < 0) {
-            throw new IndexOutOfBoundsException();
-        } else if (indeks > antall) {
+        Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
+        if (indeks < 0 || indeks > antall) {
             throw new IndexOutOfBoundsException();
         }
 
-        if (antall == 0 && indeks == 0) {
-            hode = hale = new Node<T>(verdi, null, null);
-        } else if (indeks == 0) {
-            hode = new Node<T>(verdi, null, hode);
-            hode.neste.forrige = hode;
-        } else if (indeks == antall) {
-            hale = new Node<T>(verdi, hale, null);
-            hale.forrige.neste = hale;
-        } else {
-            Node<T> nHode = hode;
-            for (int i = 0; i < indeks; ++i) {
-                nHode = nHode.neste;
-                nHode = new Node<T>(verdi, nHode.forrige, nHode);
-                nHode.neste.forrige = nHode.forrige.neste = nHode;
+        if (indeks == 0) {
+            hode = new Node<>(verdi);
+            if (antall == 0) {
+                hale = hode;
             }
-            ++antall;
-            ++endringer;
+        } else if (indeks == antall) {
+            hale = hale.neste = new Node<>(verdi);
         }
+        else {
+            Node<T> p = hode;
+            for (int i = 1; i < indeks; i++) {
+                p.neste = new Node<>(verdi);
+            }
 
-     */
+        }
+        antall++;
 
 
     }
