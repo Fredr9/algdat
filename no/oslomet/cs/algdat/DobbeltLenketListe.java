@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import com.sun.security.auth.UnixNumericUserPrincipal;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -49,8 +50,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
       */
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        liste.leggInn(5, '7');
         System.out.println(liste);
 
         //  [D, E, F, G, H]
@@ -243,7 +245,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             Node<T> nHode = hode;
 
-            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;{
+            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;
+            {
 
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
@@ -298,34 +301,69 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        return false;
+        if (verdi == null) {
+            return false;
+        }
+        Node<T> denneNoden = hode;
+        while (denneNoden != null) {
+            if (denneNoden.verdi.equals(verdi)) {
+                break;
+            }
+            denneNoden = denneNoden.neste;
+        }
+        if (denneNoden == null) {
+            return false;
+        }
+        if (denneNoden == hode) {
+            hode = hode.neste;
+
+            if (hode != null) {
+                hode.forrige = null;
+            } else {
+                hale = null;
+            }
+        } else if (denneNoden == hale) {
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            denneNoden.forrige.neste = denneNoden.neste;
+            denneNoden.neste.forrige = denneNoden.forrige;
+        }
+        denneNoden.verdi = null;
+        denneNoden.forrige = denneNoden.neste = null;
+
+        antall--;
+        endringer++;
+
+        return true;
+
+
     }
 
     @Override
     public T fjern(int indeks) {
-       indeksKontroll(indeks,false);
+        indeksKontroll(indeks,true);
 
-       T temp;
+        Node<T> midlertidig;
 
-       if (indeks == 0) {
-           temp = hode.verdi;
-           hode = hode.neste;
-           if (antall == 1) {
-               hale = null;
-           }
-       }
-       else {
-           Node<T> p = finnNode(indeks - 1);
-           Node<T> q = p.neste;
-           temp = q.verdi;
+        if (indeks == 0) {
+            midlertidig = hode;
+            hode = hode.neste;
+            hode.forrige = null;
+        } else if (indeks == antall - 1) {
+            midlertidig = hale;
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            Node<T> n = finnNode(indeks - 1);
 
-           if (q == hale) {
-               hale = p;
-           }
-           p.neste = q.neste;
-       }
-       antall--;
-       return temp;
+            midlertidig = n.neste;
+            n.neste = n.neste.neste;
+            n.neste.forrige = n;
+        }
+        antall--;
+        endringer++;
+        return midlertidig.verdi;
     }
 
     @Override
