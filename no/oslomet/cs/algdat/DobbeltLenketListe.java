@@ -194,7 +194,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+        /*Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -204,13 +204,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
+         */
+
+        Objects.requireNonNull(verdi);
+
+        if (hode == null || hale == null) {
+            hode = new Node<>(verdi);
+            hale = hode;
+        } else{
+            hale.neste = new Node<>(verdi);
+            hale.neste.forrige = hale;
+            hale = hale.neste;
+        }
+                              antall++;
+        return true;
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
         // sjekker etter null verdier
-        Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
+    /*    Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
 
         if (indeks < 0) {
             throw new IndexOutOfBoundsException();
@@ -236,6 +250,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ++antall;
             ++endringer;
         }
+
+     */
 
 
     }
