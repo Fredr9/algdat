@@ -48,20 +48,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             System.out.println(liste.toString() + " " + liste.omvendtString()); }
 
     }
+             */
 
-      */
-        Character[] c = {'A'};
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
         liste.fjern(0);
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
         System.out.println(liste);
 
         //  [D, E, F, G, H]
         //System.out.println(liste.subliste(5, 5));
         // []
-       // System.out.println(liste.subliste(8, liste.antall())); //
+        // System.out.println(liste.subliste(8, liste.antall())); //
         // [I, J] //
-       // System.out.println(liste.subliste(0, c.length + 1));
+        // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
+        
+
     }
 
     /**
@@ -72,6 +78,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
+
 
         public T getVerdi() {
             return this.verdi;
@@ -340,9 +347,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
+
     @Override
     public T fjern(int indeks) {
-       throw new UnsupportedOperationException();
+        //indeksKontroll(indeks,true);
+
+        Node<T> midlertidig;
+
+        if (indeks == 0) {
+            midlertidig = hode;
+            hode = hode.neste;
+            hode.forrige = null;
+        } else if (indeks == antall - 1) {
+            midlertidig = hale;
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            Node<T> n = finnNode(indeks - 1);
+
+            midlertidig = n.neste;
+            n.neste = n.neste.neste;
+            n.neste.forrige = n;
+        }
+        antall--;
+        endringer++;
+        return midlertidig.verdi;
     }
 
     @Override
