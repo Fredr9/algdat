@@ -317,7 +317,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //indeksKontroll(indeks,true);
 
         Node<T> midlertidig;
-        if (indeks < antall || indeks < 0) {
+        if (indeks < 0) {
             throw new IndexOutOfBoundsException();
 
         }
