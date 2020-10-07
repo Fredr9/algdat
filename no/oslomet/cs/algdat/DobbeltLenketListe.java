@@ -50,9 +50,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
       */
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        Character[] c = {'A'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        liste.leggInn(5, '7');
+        liste.fjern(0);
         System.out.println(liste);
 
         //  [D, E, F, G, H]
@@ -342,28 +342,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        indeksKontroll(indeks,true);
-
-        Node<T> midlertidig;
-
-        if (indeks == 0) {
-            midlertidig = hode;
-            hode = hode.neste;
-            hode.forrige = null;
-        } else if (indeks == antall - 1) {
-            midlertidig = hale;
-            hale = hale.forrige;
-            hale.neste = null;
-        } else {
-            Node<T> n = finnNode(indeks - 1);
-
-            midlertidig = n.neste;
-            n.neste = n.neste.neste;
-            n.neste.forrige = n;
-        }
-        antall--;
-        endringer++;
-        return midlertidig.verdi;
+       throw new UnsupportedOperationException();
     }
 
     @Override
