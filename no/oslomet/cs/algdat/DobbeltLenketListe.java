@@ -350,7 +350,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        indeksKontroll(indeks,true);
+        //indeksKontroll(indeks,true);
 
         Node<T> midlertidig;
 
