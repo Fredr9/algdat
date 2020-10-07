@@ -49,6 +49,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
       */
+        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.subliste(3,8));
+
+       //  [D, E, F, G, H]
+          System.out.println(liste.subliste(5,5));
+        // []
+        System.out.println(liste.subliste(8,liste.antall())); //
+        // [I, J] //
+        System.out.println(liste.subliste(0,c.length+1));
+        // skal kaste unntak
     }
 
     /**
@@ -59,8 +70,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
-        public T getVerdi() {return this.verdi;}
-        public void setNyVerdi(T verdi)         {this.verdi = verdi;}
+
+        public T getVerdi() {
+            return this.verdi;
+        }
+
+        public void setNyVerdi(T verdi) {
+            this.verdi = verdi;
+        }
 
         private Node(T verdi, Node<T> forrige, Node<T> neste) {
             this.verdi = verdi;
@@ -81,21 +98,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
 
-
     // hjelpemetode
     private Node<T> finnNode(int indeks) {
+        // Regner ut midtindeks
         int midtIndeks = antall / 2;
         Node<T> denne;
+        // sjekker om indeksen er i andre halvdel
         if (indeks > midtIndeks) {
+            // legger inn verdien i hale om indeksen er større en halvparten
             denne = hale;
             int denneIndeksen = antall - 1;
             while (denne != null) {
+
                 if (denneIndeksen == indeks) {
                     return denne;
                 }
                 denneIndeksen--;
                 denne = denne.forrige;
             }
+            //
         } else {
             denne = hode;
             int denneIndeksen = 0;
@@ -108,13 +129,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
         throw new IllegalStateException();
-      /*  Node<T> p = hode;
-        for (int i = 0; i < indeks; ++i) {
-            p = p.neste;
-        }
-        return p;
+     
+     
+     
+     
+     
 
-       */
+     
 
     }
 
@@ -146,7 +167,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til) {
-        throw new UnsupportedOperationException();
+        int nyttArrayStorrelse = til - fra;
+        if (nyttArrayStorrelse < 0) {
+            throw new IllegalArgumentException();
+        } else if (nyttArrayStorrelse == 0) {
+            return new DobbeltLenketListe<>();
+        }
+        this.indeksKontroll(fra, false);
+        this.indeksKontroll(til - 1, false);
+
+        Object[] resultatArray = new Object[nyttArrayStorrelse];
+
+        Node<T> denne = finnNode(fra);
+        int denneIndeksen = 0;
+        while (denne != null && (denneIndeksen + fra) < til) {
+            resultatArray[denneIndeksen++] = denne.getVerdi();
+            denne = denne.neste;
+        }
+        return new DobbeltLenketListe<>((T[]) resultatArray);
     }
 
     @Override
@@ -171,9 +209,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer++;
         antall++;
         return true;
-
-
-
 
 
     }
