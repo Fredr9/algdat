@@ -16,48 +16,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-     /*   // Liste<String> liste = new DobbeltLenketListe<>();
-        // System.out.println(liste.antall() + " " + liste.tom());
-
-        String[] s = {"1", null, "2", "3", null};
-        Liste<String> listen = new DobbeltLenketListe<>(s);
-        int[] a = {1, 3, 4};
-
-        // System.out.println(listen.antall() + " " + liste.tom());
-        //  System.out.println(listen);
-
-        listen.tom();
-        @
 
 
-        String[] s1 = {}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
-        String[] jala = {"1","2","3"};
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
-        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-        DobbeltLenketListe<String> lala3 = new DobbeltLenketListe<>(jala);
-        System.out.println(l1.toString() + " " + l2.toString() + " " + l3.toString() + " " + l1.omvendtString() + " " + l2.omvendtString() + " " + l3.omvendtString());
-        System.out.println(lala3.omvendtString());
-
-
-
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(); System.out.println(liste.toString() + " " + liste.omvendtString());
-        for (int i = 1; i <= 3; i++) {
-            liste.leggInn(i);
-
-            System.out.println(liste.toString() + " " + liste.omvendtString()); }
-
-    }
-             */
-
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        Character[] c = {'A'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.antall);
-        System.out.println(liste.endringer);
-        liste.fjern(0);
-        System.out.println(liste.antall);
-        System.out.println(liste.endringer);
-        System.out.println(liste);
+        liste.fjern(1);
+
 
         //  [D, E, F, G, H]
         //System.out.println(liste.subliste(5, 5));
@@ -353,11 +317,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //indeksKontroll(indeks,true);
 
         Node<T> midlertidig;
+        if (indeks < antall || indeks < 0) {
+            throw new IndexOutOfBoundsException();
+
+        }
 
         if (indeks == 0) {
             midlertidig = hode;
             hode = hode.neste;
-            hode.forrige = null;
+            if (antall == 1) {
+                hale = null;
+            }
         } else if (indeks == antall - 1) {
             midlertidig = hale;
             hale = hale.forrige;
