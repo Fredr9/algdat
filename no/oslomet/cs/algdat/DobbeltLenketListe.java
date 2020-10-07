@@ -22,7 +22,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-     /*   // Liste<String> liste = new DobbeltLenketListe<>();
+      /* // Liste<String> liste = new DobbeltLenketListe<>();
         // System.out.println(liste.antall() + " " + liste.tom());
 
         String[] s = {"1", null, "2", "3", null};
@@ -56,6 +56,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     }
 
+       */
+    }
     /**
      * Node class
      *
@@ -126,16 +128,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        /*if (a.length == 0) {
-            return;
-        }
 
         Node<T> naavaerende = null;
-
-        if (a == null) {
-            throw new NullPointerException();
-        }
-
 
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
@@ -150,35 +144,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     naavaerende = naavaerende.neste;
                 }
                 antall++;
-
             }
 
         }
-        if (antall == 0) {
-            return;
-        }
-        hale = naavaerende;
-        hale.neste = hode;
-        hode.forrige = hale;
-       */
-
-        Objects.requireNonNull(a);
-
-        Node<T> naavaerende = null;
-
-        for (T t : a) {
-            if (t != null) {
-                if (antall == 0) {
-                    hode = hale = naavaerende = new Node<>(t,null,null);
-                    antall ++;
-                } else {
-                    hale = naavaerende = naavaerende.neste = new Node<>(t,naavaerende,null);
-                    antall ++;
-                }
-            }
+        if (naavaerende != null) {
+            hale = naavaerende;
         }
 
->>>>>>>>> Temporary merge branch 2
+
+
     }
 
 
@@ -199,7 +173,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-       /* Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+       Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -209,16 +183,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
-        */
-
-        return true;
+        //return true;
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
         // sjekker etter null verdier
-    /*    Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
+     /* Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
 
         if (indeks < 0) {
             throw new IndexOutOfBoundsException();
@@ -245,7 +217,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ++endringer;
         }
 
-     */
+      */
     }
 
     @Override
