@@ -469,6 +469,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
+     //   if(/*indeks < 0 || indeks >= antall*/){
+       indeksKontroll(indeks,false);
+            //throw new IndexOutOfBoundsException();
+
         return new DobbeltLenketListeIterator(indeks);
     }
 
