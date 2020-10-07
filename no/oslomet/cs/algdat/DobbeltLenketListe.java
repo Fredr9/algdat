@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import com.sun.security.auth.UnixNumericUserPrincipal;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -47,20 +48,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             System.out.println(liste.toString() + " " + liste.omvendtString()); }
 
     }
+             */
 
-      */
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        liste.leggInn(5, '7');
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
+        liste.fjern(0);
+        System.out.println(liste.antall);
+        System.out.println(liste.endringer);
         System.out.println(liste);
 
         //  [D, E, F, G, H]
         //System.out.println(liste.subliste(5, 5));
         // []
-       // System.out.println(liste.subliste(8, liste.antall())); //
+        // System.out.println(liste.subliste(8, liste.antall())); //
         // [I, J] //
-       // System.out.println(liste.subliste(0, c.length + 1));
+        // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
+        
+
     }
 
     /**
@@ -71,6 +78,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
+
 
         public T getVerdi() {
             return this.verdi;
@@ -244,7 +252,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         } else {
             Node<T> nHode = hode;
 
-            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;{
+            for (int i = 0; i < indeks; ++i) nHode = nHode.neste;
+            {
 
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
@@ -299,12 +308,70 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        return false;
+        if (verdi == null) {
+            return false;
+        }
+        Node<T> denneNoden = hode;
+        while (denneNoden != null) {
+            if (denneNoden.verdi.equals(verdi)) {
+                break;
+            }
+            denneNoden = denneNoden.neste;
+        }
+        if (denneNoden == null) {
+            return false;
+        }
+        if (denneNoden == hode) {
+            hode = hode.neste;
+
+            if (hode != null) {
+                hode.forrige = null;
+            } else {
+                hale = null;
+            }
+        } else if (denneNoden == hale) {
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            denneNoden.forrige.neste = denneNoden.neste;
+            denneNoden.neste.forrige = denneNoden.forrige;
+        }
+        denneNoden.verdi = null;
+        denneNoden.forrige = denneNoden.neste = null;
+
+        antall--;
+        endringer++;
+
+        return true;
+
+
     }
+
 
     @Override
     public T fjern(int indeks) {
-       throw new UnsupportedOperationException();
+        indeksKontroll(indeks,true);
+
+        Node<T> midlertidig;
+
+        if (indeks == 0) {
+            midlertidig = hode;
+            hode = hode.neste;
+            hode.forrige = null;
+        } else if (indeks == antall - 1) {
+            midlertidig = hale;
+            hale = hale.forrige;
+            hale.neste = null;
+        } else {
+            Node<T> n = finnNode(indeks - 1);
+
+            midlertidig = n.neste;
+            n.neste = n.neste.neste;
+            n.neste.forrige = n;
+        }
+        antall--;
+        endringer++;
+        return midlertidig.verdi;
     }
 
     @Override
