@@ -469,9 +469,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-     //   if(/*indeks < 0 || indeks >= antall*/){
-       indeksKontroll(indeks,false);
-            //throw new IndexOutOfBoundsException();
+        //   if(/*indeks < 0 || indeks >= antall*/){
+        indeksKontroll(indeks, false);
+        //throw new IndexOutOfBoundsException();
 
         return new DobbeltLenketListeIterator(indeks);
     }
@@ -519,17 +519,36 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove() {
+            if (endringer != iteratorendringer) {
+                throw new ConcurrentModificationException();
+            }
+                if(antall == 1) {
+                    hode = null;
+                    hale = null;
+                }
+                if(denne == null){
+                    
+                }
+               /* while () {
+                    endringer++;
+                    iteratorendringer++;
+                }
+
+                */
+
+
+            }
+        }
+
+
+        // class DobbeltLenketListeIterator
+
+        public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
             throw new UnsupportedOperationException();
         }
+
     }
 
-    // class DobbeltLenketListeIterator
-
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
-    }
-
-}
 
 
 // class DobbeltLenketListe
