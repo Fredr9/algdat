@@ -210,7 +210,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return true;
 
 
-
     }
 
     @Override
@@ -234,13 +233,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale.forrige.neste = hale;
         } else {
             Node<T> nHode = hode;
-            for (int i = 0; i < indeks; i++) nHode = nHode.neste; {
+            for (int i = 0; i < indeks; i++) nHode = nHode.neste;
+            {
                 nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
             nHode.neste.forrige = nHode.forrige.neste = nHode;
         }
-        antall++;
-        endringer++;
+        ++antall;
+        ++endringer;
     }
 
 
@@ -285,12 +285,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+
+        indeksKontroll(indeks, false);
+        Node<T> head = hode;
+        }
+
     }
 
     @Override
