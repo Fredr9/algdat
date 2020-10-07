@@ -14,9 +14,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         System.out.println(liste.antall() + " " + liste.tom());
         */
 
-        String[] s = {"1",null,"2",null};
+        /*String[] s = {"1",null,"2",null};
         Liste<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.antall() + " " + liste.tom());
+        System.out.println(liste.antall() + " " + liste.tom());*/
 
 
     }
@@ -62,12 +62,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hode = hale = null;
 
         Node naavaerende = null;
-        /*
+
         if (a == null) {
             throw new NullPointerException();
         }
         
-        */
+
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
                 //  endringer++ ikke gjøre noe ignorere null verdier
@@ -92,6 +92,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hale = naavaerende;
         hale.neste = hode;
         hode.forrige = hale;
+    }
+    private Node<T> finnNode(int index) {
+        if (index == 0){
+            return this.hode;
+        }
+        if (index < (antall/2)) {
+            return this.hode.neste;
+        }
+        else {
+            return this.hale.forrige;
+        }
+
     }
 
 
@@ -131,7 +143,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        finnNode(indeks);
+        return hent(indeks);
     }
 
     @Override
@@ -141,7 +154,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return hent(1);
     }
 
     @Override
@@ -164,17 +178,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder tegnStreng = new StringBuilder();
         tegnStreng.append("[");
 
-        Node<T> head = hode;
 
-        for (; head != null; head = head.neste) {
-            tegnStreng.append(head.verdi);
+        for (Node<T> i = hode; i != hale; i = i.neste) {
+            if (i != null) {
+                tegnStreng.append(i.verdi);
 
-            if (head != hale) {
-                tegnStreng.append(", ");
+                if (i != hale) {
+                    tegnStreng.append(", ");
+                }
             }
-        }
 
-        tegnStreng.append("]");
+            tegnStreng.append("]");
+
+        }
         return tegnStreng.toString();
     }
 
@@ -195,7 +211,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         tegnStreng.append("]");
 
-        return tegnStreng.toString();
+        //return tegnStreng.toString();
+        return ("[]");
     }
 
     @Override
@@ -242,6 +259,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new UnsupportedOperationException();
     }
+
 
 } // class DobbeltLenketListe
 
