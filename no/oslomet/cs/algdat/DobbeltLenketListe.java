@@ -49,9 +49,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
       */
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        liste.leggInn(5, '7');
         System.out.println(liste);
 
         //  [D, E, F, G, H]
