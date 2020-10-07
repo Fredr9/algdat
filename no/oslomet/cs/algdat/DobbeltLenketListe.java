@@ -59,12 +59,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
+        public T getVerdi() {return this.verdi;}
+        public void setNyVerdi(T verdi)         {this.verdi = verdi;}
 
         private Node(T verdi, Node<T> forrige, Node<T> neste) {
             this.verdi = verdi;
             this.forrige = forrige;
             this.neste = neste;
         }
+
 
         private Node(T verdi) {
             this(verdi, null, null);
@@ -77,29 +80,31 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
 
+
+
     // hjelpemetode
     private Node<T> finnNode(int indeks) {
-        int midtIndeks = antall/2;
+        int midtIndeks = antall / 2;
         Node<T> denne;
-        if(indeks > midtIndeks){
+        if (indeks > midtIndeks) {
             denne = hale;
-            int denneIndeksen = antall-1;
-            while(denne != null){
-                if(denneIndeksen == indeks){
+            int denneIndeksen = antall - 1;
+            while (denne != null) {
+                if (denneIndeksen == indeks) {
                     return denne;
                 }
-                denneIndeksen-- ;
+                denneIndeksen--;
                 denne = denne.forrige;
             }
-        }else {
+        } else {
             denne = hode;
             int denneIndeksen = 0;
-            while(denne != null){
-                if(denneIndeksen == indeks){
+            while (denne != null) {
+                if (denneIndeksen == indeks) {
                     return denne;
                 }
                 denneIndeksen++;
-                denne= denne.neste;
+                denne = denne.neste;
             }
         }
         throw new IllegalStateException();
@@ -157,7 +162,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-       /* Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+        Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -167,16 +172,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
-        */
 
-        return true;
+
+
 
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
         // sjekker etter null verdier
-    /*    Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
+        Objects.requireNonNull(verdi, "Det kan ikke være nullverdier");
 
         if (indeks < 0) {
             throw new IndexOutOfBoundsException();
@@ -203,7 +208,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ++endringer;
         }
 
-     */
+
     }
 
 
@@ -215,7 +220,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks) {
         indeksKontroll(indeks, false);
-        return finnNode(indeks).verdi;
+        return finnNode(indeks).getVerdi();
     }
 
     @Override
@@ -225,12 +230,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(nyverdi);
+        this.indeksKontroll(indeks, false);
+        Node<T> node = finnNode(indeks);
+        T gammelVerdi = node.getVerdi();
+        node.setNyVerdi(nyverdi);
+        return gammelVerdi;
     }
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
