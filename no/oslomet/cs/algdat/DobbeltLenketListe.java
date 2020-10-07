@@ -232,6 +232,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale = hale.neste;
         }
         antall++;
+        endringer++;
         return true;
 
 
@@ -305,6 +306,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> node = finnNode(indeks);
         T gammelVerdi = node.getVerdi();
         node.setNyVerdi(nyverdi);
+        endringer++;
         return gammelVerdi;
     }
 
@@ -401,6 +403,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             }
             antall--;
+            endringer++;
         }
         antall = 0;
         hode = null;
