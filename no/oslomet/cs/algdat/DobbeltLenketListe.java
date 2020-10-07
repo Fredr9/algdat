@@ -51,13 +51,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
       */
         Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-
+        System.out.println(liste.subliste(3, 8));
 
         //  [D, E, F, G, H]
-        liste.leggInn(0, '4');
-        System.out.println(liste);
-
-
+        System.out.println(liste.subliste(5, 5));
+        // []
+        System.out.println(liste.subliste(8, liste.antall())); //
+        // [I, J] //
+        System.out.println(liste.subliste(0, c.length + 1));
+        // skal kaste unntak
     }
 
     /**
@@ -192,7 +194,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
-        /*Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
+        Objects.requireNonNull(verdi, "Det skal ikke være null objekter");
         if (tom()) {
             hode = hale = new Node<T>(verdi, null, null);
         } else {
@@ -202,20 +204,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
-         */
-
-        Objects.requireNonNull(verdi);
-
-        if (hode == null || hale == null) {
-            hode = new Node<>(verdi);
-            hale = hode;
-        } else {
-            hale.neste = new Node<>(verdi);
-            hale.neste.forrige = hale;
-            hale = hale.neste;
-        }
-        antall++;
-        return true;
 
     }
 
@@ -232,18 +220,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = hode;
             }
         } else if (indeks == antall) {
-            hale = hale.neste = new Node<>(verdi);
-        }
-        else {
-            Node<T> p = hode;
-            for (int i = 1; i < indeks; i++) {
-                p.neste = new Node<>(verdi);
+            hale = new Node<T>(verdi, hale, null);
+            hale.forrige.neste = hale;
+        } else {
+            Node<T> nHode = hode;
+            for (int i = 0; i < indeks; i++) nHode = nHode.neste; {
+                nHode = new Node<T>(verdi, nHode.forrige, nHode);
             }
-
+            nHode.neste.forrige = nHode.forrige.neste = nHode;
         }
         antall++;
-
-
+        endringer++;
     }
 
 
@@ -274,6 +261,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     }
+
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
