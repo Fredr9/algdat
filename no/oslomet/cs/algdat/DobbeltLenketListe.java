@@ -18,9 +18,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static void main(String[] args) {
 
 
-        Character[] c = {'A'};
+        Character[] c = {'A','B','C', 'D','E','F'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        liste.fjern(1);
+        liste.fjern(0);
+        liste.fjern(4);
+        System.out.println(liste.omvendtString());
+
 
 
         //  [D, E, F, G, H]
@@ -314,13 +317,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        //indeksKontroll(indeks,true);
+        indeksKontroll(indeks,false);
 
         Node<T> midlertidig;
-        if (indeks < 0) {
+        /*if (indeks < 0 || tom() || indeks > antall-1) {
             throw new IndexOutOfBoundsException();
 
-        }
+        }*/
 
         if (indeks == 0) {
             midlertidig = hode;
