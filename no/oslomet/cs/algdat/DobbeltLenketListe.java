@@ -407,11 +407,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         hale = null;
 
 
+// Denne er enklere, men virker og være marginalt mer krevende.
+        //  while(antall !=0){
+        //     fjern(0);
 
-      //  while(antall !=0){
-       //     fjern(0);
-
-        }
+    }
 
     @Override
     public String toString() {
@@ -494,7 +494,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next() {
-            throw new UnsupportedOperationException();
+            if (iteratorendringer != endringer) {
+                throw new ConcurrentModificationException();
+
+            } else if (!hasNext()) {
+                throw new NoSuchElementException();
+            } else {
+                fjernOK = true;
+                denne = denne.neste;
+                return denne.getVerdi();
+
+            }
         }
 
         @Override
