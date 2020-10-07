@@ -2,6 +2,7 @@ package no.oslomet.cs.algdat;
 
 import com.sun.security.auth.UnixNumericUserPrincipal;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -15,16 +16,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-     /*   // Liste<String> liste = new DobbeltLenketListe<>();
-        // System.out.println(liste.antall() + " " + liste.tom());
 
-        String[] s = {"1", null, "2", "3", null};
-        Liste<String> listen = new DobbeltLenketListe<>(s);
-        int[] a = {1, 3, 4};
 
-        // System.out.println(listen.antall() + " " + liste.tom());
-        //  System.out.println(listen);
-
+        Character[] c = {'A','B','C', 'D','E','F'};
         listen.tom();
         @
 
@@ -60,6 +54,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //System.out.println(liste.antall);
         System.out.println(liste.omvendtString());
         System.out.println(liste);
+        liste.fjern(4);
+        System.out.println(liste.omvendtString());
+
+
 
         //  [D, E, F, G, H]
         //System.out.println(liste.subliste(5, 5));
@@ -68,6 +66,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // [I, J] //
         // System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
+        
+
     }
 
     /**
@@ -78,6 +78,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private static final class Node<T> {
         private T verdi;                   // nodens verdi
         private Node<T> forrige, neste;    // pekere
+
 
         public T getVerdi() {
             return this.verdi;
@@ -234,6 +235,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall++;
         return true;
 
+
     }
 
     @Override
@@ -265,6 +267,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         ++antall;
         ++endringer;
+
+
+>>>>>>>>> Temporary merge branch 2
     }
 
 
@@ -353,28 +358,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public T fjern(int indeks) {
         indeksKontroll(indeks, false);
 
+        indeksKontroll(indeks,false);
 
         Node<T> midlertidig;
+        /*if (indeks < 0 || tom() || indeks > antall-1) {
+            throw new IndexOutOfBoundsException();
+
+        }*/
 
         if (indeks == 0) {
             midlertidig = hode;
             hode = hode.neste;
-            hode.forrige = null;
-           // if(antall == 1){
-            //    hale = null;
-           // }
+            if (antall == 1) {
+                hale = null;
+            }
+            else {
+                hode.forrige = null;
+            }
         } else if (indeks == antall - 1) {
             midlertidig = hale;
             hale = hale.forrige;
             hale.neste = null;
-
         } else {
             Node<T> n = finnNode(indeks - 1);
 
             midlertidig = n.neste;
             n.neste = n.neste.neste;
             n.neste.forrige = n;
-
         }
         antall--;
         endringer++;
