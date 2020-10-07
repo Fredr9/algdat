@@ -462,11 +462,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T> {
@@ -483,7 +483,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
         private DobbeltLenketListeIterator(int indeks) {
-            throw new UnsupportedOperationException();
+            denne = finnNode(indeks);
+            fjernOK = false;
+            iteratorendringer = endringer;
         }
 
 
@@ -501,8 +503,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 throw new NoSuchElementException();
             } else {
                 fjernOK = true;
+                T returVerdi = denne.getVerdi();
                 denne = denne.neste;
-                return denne.getVerdi();
+                return returVerdi;
 
             }
         }
