@@ -27,7 +27,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         listen.tom();
         @
-      */
+
 
         String[] s1 = {}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
         String[] jala = {"1","2","3"};
@@ -37,6 +37,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         DobbeltLenketListe<String> lala3 = new DobbeltLenketListe<>(jala);
         System.out.println(l1.toString() + " " + l2.toString() + " " + l3.toString() + " " + l1.omvendtString() + " " + l2.omvendtString() + " " + l3.omvendtString());
         System.out.println(lala3.omvendtString());
+
+
+
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>(); System.out.println(liste.toString() + " " + liste.omvendtString());
+        for (int i = 1; i <= 3; i++) {
+            liste.leggInn(i);
+
+            System.out.println(liste.toString() + " " + liste.omvendtString()); }
+
+    }
+
+      */
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
+        System.out.println(liste.subliste(3, 8));
+
+        //  [D, E, F, G, H]
+        System.out.println(liste.subliste(5, 5));
+        // []
+        System.out.println(liste.subliste(8, liste.antall())); //
+        // [I, J] //
+        System.out.println(liste.subliste(0, c.length + 1));
+        // skal kaste unntak
     }
 
     /**
@@ -62,6 +85,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             this.neste = neste;
         }
 
+
         private Node(T verdi) {
             this(verdi, null, null);
         }
@@ -72,6 +96,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private Node<T> hale;          // peker til den siste i listen
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
+
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) {
@@ -104,12 +129,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
         throw new IllegalStateException();
-
-
-
-
-
-
 
 
     }
@@ -217,6 +236,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             ++antall;
             ++endringer;
         }
+
+
     }
 
 
@@ -233,7 +254,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new NullPointerException();
+
+        if (verdi == null) {
+            return -1;
+        }
+
+        Node<T> p = hode;
+        for (int indeks = 0; indeks < antall; indeks++) {
+            if (p.verdi.equals(verdi)) return indeks;
+            p = p.neste;
+        }
+        return -1;
+
+
     }
 
     @Override
