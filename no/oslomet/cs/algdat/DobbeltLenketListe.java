@@ -62,6 +62,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             // skal kaste unntak
             
         */
+        String[] s1 = {"hallo"}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
+        DobbeltLenketListe<String> ja = new DobbeltLenketListe<>(s3);
+        ja.nullstill();
+        System.out.println(ja);
     }
 
 
@@ -401,7 +405,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         antall = 0;
         hode = null;
         hale = null;
-    }
+
+
+
+      //  while(antall !=0){
+       //     fjern(0);
+
+        }
 
     @Override
     public String toString() {
