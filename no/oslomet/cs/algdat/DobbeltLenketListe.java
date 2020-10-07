@@ -49,16 +49,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
       */
-        Character[] c = {'A','B','C','D','E','F','G','H','I','J',};
+        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.subliste(3,8));
+        System.out.println(liste.subliste(3, 8));
 
-       //  [D, E, F, G, H]
-          System.out.println(liste.subliste(5,5));
+        //  [D, E, F, G, H]
+        System.out.println(liste.subliste(5, 5));
         // []
-        System.out.println(liste.subliste(8,liste.antall())); //
+        System.out.println(liste.subliste(8, liste.antall())); //
         // [I, J] //
-        System.out.println(liste.subliste(0,c.length+1));
+        System.out.println(liste.subliste(0, c.length + 1));
         // skal kaste unntak
     }
 
@@ -129,13 +129,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
         throw new IllegalStateException();
-     
-     
-     
-     
-     
 
-     
 
     }
 
@@ -249,7 +243,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        return indeksTil(verdi) !=-1;
+        return indeksTil(verdi) != -1;
     }
 
     @Override
@@ -262,17 +256,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public int indeksTil(T verdi) {
 
         if (verdi == null) {
-            return -1;   }
-
-            Node<T> p = hode;
-            for (int indeks = 0; indeks < antall; indeks++) {
-                 if(p.verdi.equals(verdi)) return indeks;
-                 p = p.neste;
-            }                return -1;
-
-
-             
+            return -1;
         }
+
+        Node<T> p = hode;
+        for (int indeks = 0; indeks < antall; indeks++) {
+            if (p.verdi.equals(verdi)) return indeks;
+            p = p.neste;
+        }
+        return -1;
+
+
+    }
 
 
     @Override
