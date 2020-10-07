@@ -70,25 +70,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public DobbeltLenketListe(T[] a) {
-        hode = null;
-        hale = null;
-
-        if (a.length == 0) {
+        /*if (a.length == 0) {
             return;
         }
-        antall = 0;
-        hode = hale = null;
 
-        Node naavaerende = null;
-        /*
+        Node<T> naavaerende = null;
+
         if (a == null) {
             throw new NullPointerException();
         }
-        
-        */
+
+
         for (int i = 0; i < a.length; ++i) {
             if (a[i] == null) {
-                throw new NullPointerException();
                 //  endringer++ ikke gjøre noe ignorere null verdier
             } else {
                 if (naavaerende == null) {
@@ -105,11 +99,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
 
         }
-        if(antall == 0){
+        if (antall == 0) {
             return;
         }
-       ;
-         */
+        hale = naavaerende;
+        hale.neste = hode;
+        hode.forrige = hale;
+       */
+
         Objects.requireNonNull(a);
 
         Node<T> naavaerende = null;
@@ -126,6 +123,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
         }
 
+
+
     }
 
 
@@ -140,21 +139,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean tom() {
-        if (hode == null) {
+        /*if (hode == null) {
             return true;
         } else {
             return false;
         }
+         */
+        return antall == 0;
     }
 
 
     @Override
     public boolean leggInn(T verdi) {
+        Objects.requireNonNull(verdi);
+        Node<T> nyNode = new Node<>(verdi);
+
+
         if (verdi == null) {
             throw new NullPointerException();
         }
         antall++;
         return true;
+
     }
 
     @Override
@@ -201,7 +207,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         StringBuilder tegnStreng = new StringBuilder();
         tegnStreng.append("[");
-
         Node<T> head = hode;
 
         for (; head != null; head = head.neste) {
@@ -214,12 +219,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         tegnStreng.append("]");
         return tegnStreng.toString();
+
+
     }
 
     public String omvendtString() {
         StringBuilder tegnStreng = new StringBuilder();
         tegnStreng.append("[");
-
         Node<T> tail = hale;
 
         for (; tail != null; tail = tail.forrige) {
