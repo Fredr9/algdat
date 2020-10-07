@@ -49,13 +49,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
              */
 
-        Character[] c = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',};
+        Character[] c = {'a'};
         DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-        System.out.println(liste.antall);
-        System.out.println(liste.endringer);
+        //System.out.println(liste.antall);
+        //System.out.println(liste.endringer);
+
         liste.fjern(0);
-        System.out.println(liste.antall);
-        System.out.println(liste.endringer);
+
+
+        //System.out.println(liste.antall);
+        System.out.println(liste.omvendtString());
         System.out.println(liste);
 
         //  [D, E, F, G, H]
@@ -265,9 +268,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    
-
-
     @Override
     public boolean inneholder(T verdi) {
         return indeksTil(verdi) != -1;
@@ -351,7 +351,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        indeksKontroll(indeks, true);
+        indeksKontroll(indeks, false);
 
 
         Node<T> midlertidig;
@@ -360,6 +360,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             midlertidig = hode;
             hode = hode.neste;
             hode.forrige = null;
+           // if(antall == 1){
+            //    hale = null;
+           // }
         } else if (indeks == antall - 1) {
             midlertidig = hale;
             hale = hale.forrige;
@@ -371,7 +374,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             midlertidig = n.neste;
             n.neste = n.neste.neste;
             n.neste.forrige = n;
-            //throw new IndexOutOfBoundsException();
+
         }
         antall--;
         endringer++;
