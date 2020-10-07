@@ -521,34 +521,38 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         public void remove() {
             if (endringer != iteratorendringer) {
                 throw new ConcurrentModificationException();
+            }  if (antall == 1) {
+                hode = null;
+                hale = null;
+            } else if (denne == null) {
+                hale = hale.forrige;
+                hale.neste.forrige = null;
+                hale.neste = null;
+            } else if (denne.forrige == hode ) {
+                hode = hode.neste;
+                hode.neste.neste = null;
+                hode.neste = null;
+            }else{
+                Node<T> nodeSlette = denne.forrige;
+                Node<T> nodeFoer= nodeSlette.forrige;
+                Node<T> nodeEtter = denne;
+                nodeFoer.neste = nodeEtter;
+                nodeEtter.forrige = nodeFoer;
+                nodeSlette.forrige = null;
+                nodeSlette.neste = null;
             }
-                if(antall == 1) {
-                    hode = null;
-                    hale = null;
-                }
-                if(denne == null){
-                    
-                }
-               /* while () {
-                    endringer++;
-                    iteratorendringer++;
-                }
 
-                */
-
-
-            }
         }
-
-
-        // class DobbeltLenketListeIterator
-
-        public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-            throw new UnsupportedOperationException();
-        }
-
     }
 
+
+    // class DobbeltLenketListeIterator
+
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        throw new UnsupportedOperationException();
+    }
+
+}
 
 
 // class DobbeltLenketListe
