@@ -18,19 +18,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     public static void main(String[] args) {
-     /*   // Liste<String> liste = new DobbeltLenketListe<>();
+        // Liste<String> liste = new DobbeltLenketListe<>();
         // System.out.println(liste.antall() + " " + liste.tom());
 
-        String[] s = {"1", null, "2", "3", null};
+        /*String[] s = {"1", null, "2", "3", null};
         Liste<String> listen = new DobbeltLenketListe<>(s);
-        int[] a = {1, 3, 4};
+        int[] a = {1, 3, 4};*/
 
         // System.out.println(listen.antall() + " " + liste.tom());
-        //  System.out.println(listen);
+        //  System.out.println();
 
-        listen.tom();
-        @
-      */
+
 
         String[] s1 = {}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
         String[] jala = {"1", "2", "3"};
@@ -70,6 +68,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     // hjelpemetode
     private Node<T> finnNode(int indeks) {
+        if (indeks == 0) {
+
+        }
         Node<T> p = hode;
         Node<T> t = hale;
         if (indeks < (antall / 2)) {
@@ -190,11 +191,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        //throw new UnsupportedOperationException();
+        return indeksTil(verdi);
     }
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
+        Objects.requireNonNull(nyverdi);
+        indeksKontroll(indeks, false);
+
+        Node<T> p = finnNode(indeks);
+        T old = p.verdi;
+
+        p.verdi = nyverdi;
+        return old;
 
     }
 
