@@ -72,7 +72,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
          */
 
 
-
     }
 
 
@@ -563,9 +562,41 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     // class DobbeltLenketListeIterator
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-    if(liste.antall() <=1)                   {
-        return;
-    }
+        if (liste.antall() <= 1) {
+            return;
+        }
+        // løper igjennom listen
+        for (int i = 0; i < liste.antall(); ++i) {
+            int denneIndeks = 0;
+            int nesteIndeks = 1;
+            T denne = liste.hent(denneIndeks);
+            T neste = liste.hent(nesteIndeks);
+
+            while (neste != null) {
+                // sjekker om denne noden er større enn neste, de må også
+                // vaere stoerre enn 0;
+                boolean nodeErStoerreEnnNeste = c.compare(denne, neste) > 0;
+                // Hvis nodeErstoerreEnnNeste er sann så bytter man denne og neste.
+                if (nodeErStoerreEnnNeste){
+                    // bytter
+                    liste.fjern(denne);
+                    liste.leggInn(nesteIndeks,denne);
+                // ellers skal denne være lik neste, slik at den sorterer
+                //     neste element.
+                } else{
+                    denne = neste;
+                }
+                // sjekker om man har nådd slutten av listen
+                if(nesteIndeks + 1 >= liste.antall()){
+                    // går ut av løkken om man har nådd slutten
+                    break;
+
+                }
+                neste = liste.hent(nesteIndeks+1);
+                nesteIndeks++;
+
+            }
+        }
     }
 }
 
