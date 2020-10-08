@@ -20,6 +20,10 @@ Her sjekker vi først om den er tom, hvis den ikke er tom benytter vi oss av Str
 Så lenge hode ikke er null så "omformer" head.verdi til char.
 
 Oppgave 3:
+a: Her bruker vi en hjelpe variabel for å sjekke hvilken ende anv listen finnNode metoden skal jobbe fra. Hent metoden brukes for å returnere indeksen til noden, og Oppdater metoden brukes returnere verdien til noden.
+
+b: subliste metoden lager og returnerer en liste av verider i en eksisterende liste, de velges startverdi og sluttverdi. metoden gir feilmeldinger for ugyldige verdier.
+Verdier blir lagt inn i den nye listen ved hjelp av en while lokke
 
 Oppgave 4:
 
