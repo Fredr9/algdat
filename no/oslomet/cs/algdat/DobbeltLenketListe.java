@@ -12,12 +12,6 @@ import java.util.*;
 
 public class DobbeltLenketListe<T> implements Liste<T> {
 
-
-    public static void main(String[] args) {
-
-    }
-
-
     /**
      * Node class
      *
