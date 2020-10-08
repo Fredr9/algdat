@@ -11,70 +11,6 @@ import java.util.*;
 public class DobbeltLenketListe<T> implements Liste<T> {
 
 
-    public static void main(String[] args) {
-
-
-        
-       /*
-
-
-        String[] s1 = {}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
-        String[] jala = {"1", "2", "3"};
-        DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
-        DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
-        DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
-        DobbeltLenketListe<String> lala3 = new DobbeltLenketListe<>(jala);
-        System.out.println(l1.toString() + " " + l2.toString() + " " + l3.toString() + " " + l1.omvendtString() + " " + l2.omvendtString() + " " + l3.omvendtString());
-        System.out.println(lala3.omvendtString());
-
-
-        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
-        System.out.println(liste.toString() + " " + liste.omvendtString());
-        for (int i = 1; i <= 3; i++) {
-            liste.leggInn(i);
-
-            System.out.println(liste.toString() + " " + liste.omvendtString());
-
-
-            Character[] c = {'a'};
-            DobbeltLenketListe<Character> liste = new DobbeltLenketListe<>(c);
-            //System.out.println(liste.antall);
-            //System.out.println(liste.endringer);
-
-
-            //System.out.println(liste.antall);
-            System.out.println(liste.omvendtString());
-            System.out.println(liste);
-            liste.fjern(4);
-            System.out.println(liste.omvendtString());
-
-
-            //  [D, E, F, G, H]
-            //System.out.println(liste.subliste(5, 5));
-            // []
-            // System.out.println(liste.subliste(8, liste.antall())); //
-            // [I, J] //
-            // System.out.println(liste.subliste(0, c.length + 1));
-            // skal kaste unntak
-            
-
-        String[] s1 = {"hallo"}, s2 = {"A"}, s3 = {null, " A", null, "B", null};
-        DobbeltLenketListe<String> ja = new DobbeltLenketListe<>(s3);
-        ja.nullstill();
-        System.out.println(ja);*/
-        /*DobbeltLenketListe<String> liste =
-                new DobbeltLenketListe<>(new String[]
-                        {"Birger", "Lars", "Anders", "Bodil", "Kari", "Per", "Berit"});
-        liste.fjernHvis(navn -> navn.charAt(0) == 'P'); // fjerner navn som starter med B
-         System.out.println(liste + " " + liste.omvendtString());
-// Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
-
-         */
-
-
-    }
-
-
     /**
      * Node class
      *
@@ -160,20 +96,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public DobbeltLenketListe(T[] a) {
         Node<T> naavaerende = null;
-        for (int i = 0; i < a.length; ++i) {
-            if (a[i] == null) {
-                // ignorerer null verdier
-            } else {
+        for (T t : a) {
+            if (t != null) {
                 if (naavaerende == null) {
-                    hode = new Node<T>(a[i]);
+                    hode = new Node<>(t);
                     naavaerende = hode;
                 } else {
-                    naavaerende.neste = new Node<T>(a[i]);
+                    naavaerende.neste = new Node<>(t);
                     naavaerende.neste.forrige = naavaerende;
                     naavaerende = naavaerende.neste;
                 }
                 antall++;
             }
+
         }
         if (naavaerende != null) {
             hale = naavaerende;
@@ -256,18 +191,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         if (antall == 0 && indeks == 0) {
-            hode = hale = new Node<T>(verdi, null, null);
+            hode = hale = new Node<>(verdi, null, null);
         } else if (indeks == 0) {
-            hode = new Node<T>(verdi, null, hode);
+            hode = new Node<>(verdi, null, hode);
             hode.neste.forrige = hode;
         } else if (indeks == antall) {
-            hale = new Node<T>(verdi, hale, null);
+            hale = new Node<>(verdi, hale, null);
             hale.forrige.neste = hale;
         } else {
             Node<T> nHode = hode;
             for (int i = 0; i < indeks; i++) nHode = nHode.neste;
             {
-                nHode = new Node<T>(verdi, nHode.forrige, nHode);
+                nHode = new Node<>(verdi, nHode.forrige, nHode);
             }
             nHode.neste.forrige = nHode.forrige.neste = nHode;
         }
