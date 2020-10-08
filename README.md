@@ -8,8 +8,16 @@ Oppgaven er levert av følgende studenter.
 Alex Tran s336111 Fredrik Vogt s315714 Jesper Østervold s341861
 
 Beskrivelse om hvordan oppgavene ble løst;
+Vi har samarbeidet på oppgavene, og tatt noe problemløsning hver for oss.
+
 
 Oppgave 1:
+Her har vi brukt en foreach løkke og så lenge t ikke er null så oppdateres hode.
+videre oppdateres antall og hale hvis naavaende ikke er null.
+
+Oppgave 2:
+Her sjekker vi først om den er tom, hvis den ikke er tom benytter vi oss av StringBuilder til å sette sammen listen til en char liste.
+Så lenge hode ikke er null så "omformer" head.verdi til char.
 
 
 Warnings beskivelse:
