@@ -1,10 +1,6 @@
 package no.oslomet.cs.algdat;
 
-import com.sun.security.auth.UnixNumericUserPrincipal;
-
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.*;
-import java.util.function.Predicate;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
