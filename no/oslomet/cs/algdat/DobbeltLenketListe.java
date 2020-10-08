@@ -570,7 +570,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     if(liste.antall() <=1)                   {
         return;
     }
-
     }
 }
 
