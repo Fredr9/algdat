@@ -31,7 +31,7 @@ Oppgave 5:
 
 Oppgave 6:
 
-Oppgave 7:
+Oppgave 7: Oppgaven ble lost på to forskjellige maater, med en while lokke og en for lokke. While lokken var simpel å implementere da den kan fjerne indeks 0 så lenge antall ikke er 0. For lokken bruker neste og forrige pekere for å navigere seg gjennom listen for å fjerne noder og sette hode/hale til null. For lokken viste seg å vaare den raskere av de to maatene.
 
 Oppgave 8:
 
