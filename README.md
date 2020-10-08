@@ -19,6 +19,22 @@ Oppgave 2:
 Her sjekker vi først om den er tom, hvis den ikke er tom benytter vi oss av StringBuilder til å sette sammen listen til en char liste.
 Så lenge hode ikke er null så "omformer" head.verdi til char.
 
+Oppgave 3:
+
+Oppgave 4:
+
+Oppgave 5:
+
+Oppgave 6:
+
+Oppgave 7:
+
+Oppgave 8:
+
+Oppgave 9:
+
+Oppgave 10:
+
 
 Warnings beskivelse:
 Vi har 4 warnings vi ikke klarer å gjøre noe med.
