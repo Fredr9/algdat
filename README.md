@@ -29,9 +29,12 @@ Oppgave 4:Vi har brukt en if sjekk for å returnere -1 om verdi er null.
 Videre sjekker vi om p er lik verdi i en for løkke, og løper gjennom listen, og den returnerer indeks. 
 
 
-Oppgave 5:
+Oppgave 5: Starter med oppgaven med å sjekke etter nullverdier
+Deretter sjekker vi størrelse på indeksen og setter ny verdi
 
-Oppgave 6:
+Oppgave 6: Koden går gjennom listen etter dersom verdien er null, så vil den bli fjernet. 
+Dette gjøres da når den har gått gjennom hele listen. 
+
 
 Oppgave 7: Oppgaven ble lost på to forskjellige maater, med en while lokke og en for lokke. While lokken var simpel å implementere da den kan fjerne indeks 0 så lenge antall ikke er 0. For lokken bruker neste og forrige pekere for å navigere seg gjennom listen for å fjerne noder og sette hode/hale til null. For lokken viste seg å vaare den raskere av de to maatene.
 
